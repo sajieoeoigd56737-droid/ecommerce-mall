@@ -1,0 +1,67 @@
+# =========================
+# OS / IDE / Editor
+# =========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.local
+.env.*.local
+*.env
+
+# =========================
+# Backend (Maven + Spring Boot)
+# =========================
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+!backend/.mvn/wrapper/maven-wrapper.properties
+backend/*.log
+backend/logs/
+backend/out/
+
+# =========================
+# Frontend (Vite + Vue)
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.vite/
+frontend/*.log
+frontend/coverage/
+
+# =========================
+# Logs & Temp
+# =========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+*.tmp
+*.temp
+
+# =========================
+# Build outputs
+# =========================
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# =========================
+# Misc
+# =========================
+*.bak
+*~
