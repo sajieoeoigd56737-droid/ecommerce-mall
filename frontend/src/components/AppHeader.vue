@@ -29,18 +29,24 @@
         </svg>
         <span v-if="cartCount" class="badge">{{ cartCount }}</span>
       </router-link>
-      <button class="tool-icon user-tool" type="button" aria-label="我的账号" @click="handleUser">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 12a4.3 4.3 0 1 0 0-8.6 4.3 4.3 0 0 0 0 8.6Zm-8 8.5c.6-4 3.7-6 8-6s7.4 2 8 6" />
-        </svg>
-        <span class="user-name">{{ userInfo ? userInfo.nickname || userInfo.username : '我的' }}</span>
-      </button>
+      <div class="user-menu-wrap">
+        <button class="tool-icon user-tool" type="button" aria-label="我的账号" @click="handleUser">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 12a4.3 4.3 0 1 0 0-8.6 4.3 4.3 0 0 0 0 8.6Zm-8 8.5c.6-4 3.7-6 8-6s7.4 2 8 6" />
+          </svg>
+          <span class="user-name">{{ userInfo ? userInfo.nickname || userInfo.username : '我的' }}</span>
+        </button>
+        <div v-if="userInfo" class="user-dropdown">
+          <button type="button" @click="logout">退出登录</button>
+          <button type="button" @click="switchAccount">登录其他账号</button>
+        </div>
+      </div>
     </div>
   </header>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
@@ -56,20 +62,36 @@ defineProps({
 })
 
 const router = useRouter()
-const userInfo = computed(() => {
+const userInfo = ref(readUserInfo())
+
+function readUserInfo() {
   try {
     return JSON.parse(localStorage.getItem('userInfo'))
   } catch {
     return null
   }
-})
+}
 
 function handleUser() {
   if (!userInfo.value) {
     router.push('/login')
-    return
   }
-  ElMessage.success(`您好，${userInfo.value.nickname || userInfo.value.username}`)
+}
+
+function clearLogin() {
+  localStorage.removeItem('userInfo')
+  userInfo.value = null
+}
+
+function logout() {
+  clearLogin()
+  ElMessage.success('已退出登录')
+  router.push('/home')
+}
+
+function switchAccount() {
+  clearLogin()
+  router.push('/login')
 }
 </script>
 
@@ -200,12 +222,70 @@ function handleUser() {
   height: 31px;
 }
 
+.user-menu-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.user-tool {
+  height: 100%;
+}
+
 .user-name {
   max-width: 70px;
   overflow: hidden;
   font-size: 15px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% - 10px);
+  right: 0;
+  z-index: 20;
+  min-width: 148px;
+  padding: 8px;
+  display: none;
+  border: 1px solid #f0d8c4;
+  border-radius: 8px;
+  background: #fffdfb;
+  box-shadow: 0 14px 32px rgba(89, 54, 24, 0.14);
+}
+
+.user-menu-wrap:hover .user-dropdown,
+.user-menu-wrap:focus-within .user-dropdown {
+  display: grid;
+  gap: 4px;
+}
+
+.user-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 0;
+  left: 0;
+  height: 10px;
+}
+
+.user-dropdown button {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 6px;
+  color: #44352c;
+  background: transparent;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.user-dropdown button:hover {
+  color: var(--mall-primary);
+  background: #fff3eb;
 }
 
 .badge {
