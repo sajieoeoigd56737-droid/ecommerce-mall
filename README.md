@@ -36,7 +36,7 @@ cd backend
 mvn spring-boot:run
 ```
 
-服务启动后监听 `http://localhost:8080`，并允许 `http://localhost:5173` 发起跨域 API 请求。
+服务启动后监听 `http://localhost:8080`。前端开发服务会在同源 `/api` 路径下代理请求到该服务，后端也允许通过开发端口 `5173` 打开的局域网页面发起 API 请求。
 
 ## 前端启动
 
@@ -47,10 +47,11 @@ mvn spring-boot:run
 
 ### 配置接口地址
 
-前端默认使用 `.env.example` 中的后端接口地址：
+本地开发默认无需配置接口地址。浏览器向前端开发服务的 `/api` 发起请求，由 Vite 转发到本机后端，因此通过局域网打开前端页面时也能正常加载数据。
 
 ```bash
-VITE_API_BASE_URL=http://localhost:8080/api
+# 仅在部署前端并需要连接指定后端时配置
+VITE_API_BASE_URL=https://api.example.com/api
 ```
 
 ### 启动前端
@@ -61,4 +62,4 @@ npm install
 npm run dev
 ```
 
-前端开发服务监听 `http://localhost:5173`。
+前端开发服务监听所有网卡上的 `5173` 端口。本机可访问 `http://localhost:5173`，同一局域网设备可访问终端输出的 `Network` 地址。

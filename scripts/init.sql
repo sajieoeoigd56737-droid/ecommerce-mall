@@ -86,8 +86,8 @@ VALUES ('admin', '123456');
 INSERT INTO `product`
     (`name`, `category`, `price`, `stock`, `image_url`, `description`, `status`)
 VALUES
-    ('无线蓝牙耳机', '数码配件', 199.00, 58, 'https://picsum.photos/300/300?1', '轻便易携带的无线蓝牙耳机。', 1),
-    ('不锈钢保温杯', '家居日用', 89.00, 120, 'https://picsum.photos/300/300?2', '适合日常使用的不锈钢保温杯。', 1),
-    ('北欧简约台灯', '家居照明', 129.00, 36, 'https://picsum.photos/300/300?3', '简约风格桌面照明台灯。', 1),
-    ('纯棉四件套', '家居纺织', 259.00, 15, 'https://picsum.photos/300/300?4', '柔软亲肤的纯棉床品四件套。', 1),
-    ('智能手环', '智能设备', 159.00, 42, 'https://picsum.photos/300/300?5', '支持基础运动记录的智能手环。', 1);
+    ('无线蓝牙耳机', '数码配件', 199.00, 58, '/images/products/wireless-earbuds.png', '轻便易携带的无线蓝牙耳机。', 1),
+    ('不锈钢保温杯', '家居日用', 89.00, 120, '/images/products/thermal-bottle.png', '适合日常使用的不锈钢保温杯。', 1),
+    ('北欧简约台灯', '家居照明', 129.00, 36, '/images/products/nordic-desk-lamp.png', '简约风格桌面照明台灯。', 1),
+    ('纯棉四件套', '家居纺织', 259.00, 15, '/images/products/cotton-bedding-set.png', '柔软亲肤的纯棉床品四件套。', 1),
+    ('智能手环', '智能设备', 159.00, 42, '/images/products/smart-band.png', '支持基础运动记录的智能手环。', 1);
